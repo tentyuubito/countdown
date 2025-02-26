@@ -6,24 +6,114 @@
     <title>Countdown Timer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #282c34;
+            background: linear-gradient(to top left, #ffb6c1, #ffebf0);
             color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            font-size: 4em;
             text-align: center;
+            margin-bottom: 40px;
+            color: #ff8c94;
+            font-family: 'Brush Script MT', cursive;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
         }
+
         #countdown {
-            font-size: 2em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 25px;
+            padding: 40px 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 2px solid #f7b2b8;
         }
+
+        .countdown-item {
+            margin: 0 25px;
+            text-align: center;
+            background-color: #ff6b81;
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 3em;
+            position: relative;
+        }
+
+        .countdown-item::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #fff;
+            opacity: 0.2;
+            transform: translate(-50%, -50%);
+        }
+
+        .countdown-item p {
+            font-size: 1.5em;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #f7e4e7;
+        }
+
+        .countdown-item span {
+            font-size: 4em;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .countdown-item:hover {
+            animation: pulse 1.5s infinite;
+            transform: scale(1.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
     </style>
 </head>
 <body>
-	<h1>นับถอยหลังแต่งงาน<h1>
-	
-    <div id="countdown"></div>
+    <div>
+        <h1>นับถอยหลังวันแต่งงาน เฟรม-ฟู</h1>
+        <div id="countdown">
+            <div class="countdown-item" id="days">
+                <span>0</span>
+                <p>วัน</p>
+            </div>
+            <div class="countdown-item" id="hours">
+                <span>0</span>
+                <p>ชั่วโมง</p>
+            </div>
+            <div class="countdown-item" id="minutes">
+                <span>0</span>
+                <p>นาที</p>
+            </div>
+            <div class="countdown-item" id="seconds">
+                <span>0</span>
+                <p>วินาที</p>
+            </div>
+        </div>
+    </div>
     <script>
         function updateCountdown() {
             const targetDate = new Date("Jul 5, 2025 15:00:00").getTime();
@@ -31,7 +121,7 @@
             const difference = targetDate - now;
             
             if (difference < 0) {
-                document.getElementById("countdown").innerHTML = "Countdown expired!";
+                document.getElementById("countdown").innerHTML = "<h2 style='font-size: 2.5em; color: #ff5c5c;'>Countdown expired!</h2>";
                 return;
             }
             
@@ -40,7 +130,10 @@
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
             
-            document.getElementById("countdown").innerHTML = `${days}วัน ${hours}ชั่วโมง ${minutes}นาที ${seconds}วินาที`;
+            document.getElementById("days").getElementsByTagName("span")[0].innerText = days;
+            document.getElementById("hours").getElementsByTagName("span")[0].innerText = hours;
+            document.getElementById("minutes").getElementsByTagName("span")[0].innerText = minutes;
+            document.getElementById("seconds").getElementsByTagName("span")[0].innerText = seconds;
         }
         
         updateCountdown();
