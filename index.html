@@ -6,95 +6,116 @@
     <title>Countdown Timer</title>
     <style>
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(to top left, #ffb6c1, #ffebf0);
-            color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(to top left, #f2d7ea, #fff0f5);
+            color: #333;
         }
 
         h1 {
-            font-size: 4em;
+            font-size: 2.5em;
             text-align: center;
-            margin-bottom: 40px;
-            color: #ff8c94;
+            margin-bottom: 20px;
             font-family: 'Brush Script MT', cursive;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            color: #ff5e7d;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
         }
 
         #countdown {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: rgba(255, 255, 255, 0.85);
-            border-radius: 25px;
-            padding: 40px 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(15px);
-            border: 2px solid #f7b2b8;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            box-sizing: border-box;
+            backdrop-filter: blur(10px);
         }
 
         .countdown-item {
-            margin: 0 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #ff5e7d;
+            padding: 20px 30px;
+            margin: 10px;
+            border-radius: 12px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            width: 90px;
+            height: 120px;
             text-align: center;
-            background-color: #ff6b81;
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.3);
-            color: #fff;
-            font-size: 3em;
-            position: relative;
-        }
-
-        .countdown-item::before {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #fff;
-            opacity: 0.2;
-            transform: translate(-50%, -50%);
-        }
-
-        .countdown-item p {
-            font-size: 1.5em;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #f7e4e7;
+            transition: transform 0.3s ease-in-out;
         }
 
         .countdown-item span {
-            font-size: 4em;
+            font-size: 2.5em;
             font-weight: bold;
-            display: block;
+            letter-spacing: 1px;
+        }
+
+        .countdown-item p {
             margin-top: 10px;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .countdown-item:hover {
-            animation: pulse 1.5s infinite;
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        /* Mobile-first responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+            }
+
+            #countdown {
+                padding: 20px;
+            }
+
+            .countdown-item {
+                width: 80px;
+                height: 100px;
+                padding: 15px;
+                margin: 10px;
+            }
         }
 
+        /* iPhone 13+ specific styles (larger screens) */
+        @media (min-width: 768px) {
+            #countdown {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            .countdown-item {
+                width: 100px;
+                height: 140px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 40px;
+            }
+        }
     </style>
 </head>
 <body>
     <div>
-        <h1>นับถอยหลังวันแต่งงาน เฟรม-ฟู</h1>
+        <h1>เฟรม-ฟู</h1>
+		       <h1>นับถอยหลังวันแต่งงาน เฟรม-ฟู</h1>
         <div id="countdown">
             <div class="countdown-item" id="days">
                 <span>0</span>
@@ -119,23 +140,23 @@
             const targetDate = new Date("Jul 5, 2025 15:00:00").getTime();
             const now = new Date().getTime();
             const difference = targetDate - now;
-            
+
             if (difference < 0) {
                 document.getElementById("countdown").innerHTML = "<h2 style='font-size: 2.5em; color: #ff5c5c;'>Countdown expired!</h2>";
                 return;
             }
-            
+
             const days = Math.floor(difference / (1000 * 60 * 60 * 24));
             const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-            
+
             document.getElementById("days").getElementsByTagName("span")[0].innerText = days;
             document.getElementById("hours").getElementsByTagName("span")[0].innerText = hours;
             document.getElementById("minutes").getElementsByTagName("span")[0].innerText = minutes;
             document.getElementById("seconds").getElementsByTagName("span")[0].innerText = seconds;
         }
-        
+
         updateCountdown();
         setInterval(updateCountdown, 1000);
     </script>
